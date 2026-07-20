@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search Player | BERCHKO Tournament</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/search.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">🏆 BERCHKO</div>
+
+        <ul class="nav-menu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="search.html">SEARCH</a></li>
+            <li><a href="groups.html">GROUPS</a></li>
+            <li><a href="schedule.html">MATCHES</a></li>
+            <li><a href="login.html">ADMIN</a></li>
+        </ul>
+
+    </nav>
+
+    <section class="search-page">
+
+        <h1>🔎 Search Your Name</h1>
+
+        <p>
+            Enter your full name to see your tournament information.
+        </p>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="playerName"
+                placeholder="Enter your full name">
+
+            <button id="searchBtn">
+                Search
+            </button>
+
+        </div>
+
+        <div id="result"></div>
+
+    </section>
+
+     Supabase Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Supabase Config -->
+    <script src="js/supabase.js"></script>
+
+    <!-- Search Script -->
+    <script src="js/search.js"></script>
+<!--
+</body>
+
+</html>

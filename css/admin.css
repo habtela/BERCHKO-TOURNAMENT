@@ -1,0 +1,263 @@
+/* ===========================
+   ADMIN DASHBOARD
+=========================== */
+
+.admin-dashboard{
+    max-width:1300px;
+    margin:120px auto 60px;
+    padding:20px;
+}
+
+.admin-title{
+    text-align:center;
+    font-size:48px;
+    color:#FFD700;
+    margin-bottom:40px;
+    text-shadow:0 0 20px rgba(255,215,0,.4);
+}
+
+.admin-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+    gap:30px;
+}
+
+.admin-card{
+    background:rgba(20,20,20,.92);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,215,0,.25);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 15px 35px rgba(0,0,0,.45);
+    transition:.35s;
+}
+
+.admin-card:hover{
+    transform:translateY(-8px);
+    border-color:#FFD700;
+    box-shadow:0 20px 45px rgba(255,215,0,.18);
+}
+
+.admin-card h2{
+    color:#FFD700;
+    margin-bottom:25px;
+    text-align:center;
+    font-size:28px;
+}
+
+.admin-card input{
+    width:100%;
+    padding:14px 18px;
+    margin-bottom:18px;
+    border-radius:12px;
+    border:2px solid #333;
+    background:#111;
+    color:#fff;
+    font-size:16px;
+    outline:none;
+    transition:.3s;
+}
+
+.admin-card input:focus{
+    border-color:#FFD700;
+    box-shadow:0 0 15px rgba(255,215,0,.35);
+}
+
+.admin-card button{
+    width:100%;
+    padding:15px;
+    margin-top:12px;
+    border:none;
+    border-radius:12px;
+    background:#FFD700;
+    color:#111;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.admin-card button:hover{
+    transform:translateY(-3px);
+    background:#ffea5b;
+}
+
+#playerList{
+    max-height:420px;
+    overflow-y:auto;
+}
+
+#playerList p{
+    background:#111;
+    border-left:4px solid #FFD700;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:10px;
+    color:#fff;
+}
+
+#playerList::-webkit-scrollbar{
+    width:8px;
+}
+
+#playerList::-webkit-scrollbar-thumb{
+    background:#FFD700;
+    border-radius:10px;
+}
+
+@media(max-width:768px){
+
+    .admin-title{
+        font-size:34px;
+    }
+
+    .admin-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+/* ===========================
+   GLASS EFFECT
+=========================== */
+
+.admin-card{
+    position:relative;
+    overflow:hidden;
+}
+
+.admin-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-50%;
+
+    left:-50%;
+
+    width:200%;
+
+    height:200%;
+
+    background:linear-gradient(
+        45deg,
+        transparent,
+        rgba(255,215,0,.08),
+        transparent
+    );
+
+    transform:rotate(25deg);
+
+    animation:shine 6s linear infinite;
+
+}
+
+@keyframes shine{
+
+    0%{
+        transform:translateX(-100%) rotate(25deg);
+    }
+
+    100%{
+        transform:translateX(100%) rotate(25deg);
+    }
+
+}
+
+/* ===========================
+   BUTTON EFFECT
+=========================== */
+
+.admin-card button{
+
+    letter-spacing:1px;
+
+}
+
+.admin-card button:hover{
+
+    box-shadow:0 0 25px rgba(255,215,0,.5);
+
+}
+
+/* ===========================
+   TITLE
+=========================== */
+
+.admin-title{
+
+    letter-spacing:4px;
+
+    font-weight:800;
+
+}
+/* ===========================
+   REGISTERED PLAYERS
+=========================== */
+
+.player-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#1b1b1b;
+    border:1px solid rgba(255,215,0,.25);
+    border-radius:12px;
+    padding:15px 18px;
+    margin-bottom:12px;
+    transition:.3s;
+}
+
+.player-item:hover{
+    transform:translateY(-3px);
+    border-color:#FFD700;
+    box-shadow:0 0 18px rgba(255,215,0,.35);
+}
+
+.player-item span{
+    color:#fff;
+    font-size:17px;
+    font-weight:600;
+}
+
+/* Delete Button */
+
+.player-item button{
+    width:20px;
+    height:20px;
+    border:none;
+    border-radius:25%;
+    background:#ff3b3b;
+    color:#fff;
+    font-size:10px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.player-item button:hover{
+    background:#ff0000;
+    transform:scale(1.12);
+    box-shadow:0 0 15px rgba(255,0,0,.6);
+}
+.player-list{
+    margin-top:20px;
+    display:grid;
+    gap:12px;
+}
+
+.player-item{
+    background:#1b1b1b;
+    border:1px solid rgba(255,215,0,.25);
+    border-radius:12px;
+    padding:14px 18px;
+    color:white;
+    font-size:17px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:.3s;
+}
+
+.player-item:hover{
+    border-color:#FFD700;
+    transform:translateY(-2px);
+}

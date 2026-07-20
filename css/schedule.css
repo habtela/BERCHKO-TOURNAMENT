@@ -1,0 +1,177 @@
+/* ===========================
+   BERCHKO MATCH CENTER
+=========================== */
+
+
+.match-section{
+
+    padding:60px 20px;
+
+    min-height:100vh;
+
+    background:
+    linear-gradient(
+        135deg,
+        #050505,
+        #171717
+    );
+
+    color:white;
+
+}
+
+
+
+.match-section h1{
+
+    text-align:center;
+
+    font-size:42px;
+
+    font-weight:800;
+
+    color:#FFD700;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.subtitle{
+
+    text-align:center;
+
+    color:#ccc;
+
+    margin-bottom:40px;
+
+    font-size:18px;
+
+}
+
+
+
+
+.match-container{
+
+    max-width:900px;
+
+    margin:auto;
+
+    display:grid;
+
+    gap:25px;
+
+}
+
+
+
+
+.match-card{
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #202020,
+        #080808
+    );
+
+
+    border:1px solid rgba(255,215,0,0.4);
+
+    border-radius:20px;
+
+    padding:30px;
+
+
+    box-shadow:
+
+    0 0 25px rgba(255,215,0,0.15);
+
+
+    transition:0.3s;
+
+}
+
+
+
+.match-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+
+    0 0 35px rgba(255,215,0,0.35);
+
+}
+
+
+
+
+.teams{
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:35px;
+
+}
+
+
+
+.team{
+
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:white;
+
+}
+
+
+
+.vs{
+
+
+    font-size:35px;
+
+    font-weight:900;
+
+    color:#FFD700;
+
+}
+
+
+
+
+.match-info{
+
+    margin-top:25px;
+
+    text-align:center;
+
+    color:#ddd;
+
+    font-size:16px;
+
+    line-height:2;
+
+}
+
+
+
+.match-info span{
+
+    color:#FFD700;
+
+    font-weight:bold;
+
+}

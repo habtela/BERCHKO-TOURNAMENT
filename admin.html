@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BERCHKO | Admin Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            🏆 BERCHKO
+        </div>
+
+        <ul class="nav-menu">
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="search.html">SEARCH</a></li>
+            <li><a href="groups.html">GROUPS</a></li>
+            <li><a href="schedule.html">MATCHES</a></li>
+            <li id="adminLink" style="display:none;">
+<a href="admin.html">ADMIN</a>
+</li>   
+        </ul>
+
+    </header>
+
+    <!-- DASHBOARD -->
+
+    <main class="admin-dashboard">
+
+        <h1 class="admin-title">
+            🛡️ ADMIN DASHBOARD
+        </h1>
+
+        <div class="admin-grid">
+
+            <!-- PLAYER CARD -->
+
+            <div class="admin-card">
+
+                <h2>👤 Add New Player</h2>
+
+                <input
+                    type="text"
+                    id="playerName"
+                    placeholder="Player Name">
+
+                <button id="savePlayer">
+                    ➕ Add Player
+                </button>
+
+                <button id="drawGroups">
+                    🎲 Draw Groups
+                </button>
+
+            </div>
+
+            <!-- PLAYER LIST -->
+
+            <div class="admin-card">
+
+<h2>📋 Registered Players</h2>
+
+<div id="playerList" class="player-list"></div>
+
+            </div>
+
+            <!-- MATCH CARD -->
+
+            <div class="admin-card">
+
+                <h2>⚽ Add Match</h2>
+
+                <select id="teamOne">
+    <option value="">Select Team One</option>
+    <option value="Group A">Group A</option>
+    <option value="Group B">Group B</option>
+    <option value="Group C">Group C</option>
+    <option value="Group D">Group D</option>
+    <option value="Group E">Group E</option>
+    <option value="Group F">Group F</option>
+</select>
+
+
+<select id="teamTwo">
+    <option value="">Select Team Two</option>
+    <option value="Group A">Group A</option>
+    <option value="Group B">Group B</option>
+    <option value="Group C">Group C</option>
+    <option value="Group D">Group D</option>
+    <option value="Group E">Group E</option>
+    <option value="Group F">Group F</option>
+</select>
+                <input
+                    type="date"
+                    id="matchDate">
+
+                <input
+                    type="time"
+                    id="matchTime">
+
+                <input
+                    type="text"
+                    id="stadium"
+                    placeholder="Stadium">
+
+                <button id="saveMatch">
+                    💾 Save Match
+                </button>
+                <button id="updateMatch" style="display:none;">
+    ✏ Update Match
+</button>
+
+            </div>
+<!-- MATCH MANAGEMENT -->
+
+<div class="admin-card">
+
+    <h2>📋 Registered Matches</h2>
+
+    <div id="matchList"></div>
+
+</div>
+        </div>
+
+    </main>
+
+    <!-- SCRIPTS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="js/supabase.js"></script>
+
+    <script src="js/admin-auth.js"></script>
+
+    <script src="js/admin.js"></script>
+
+</body>
+
+</html>
