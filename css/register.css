@@ -1,0 +1,124 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:
+    linear-gradient(rgba(0,0,0,.70),rgba(0,0,0,.85)),
+    url("../images/stadium.jpg");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    overflow:hidden;
+}
+
+.overlay{
+    position:absolute;
+    inset:0;
+    backdrop-filter:blur(3px);
+}
+
+.register-container{
+    position:relative;
+    z-index:10;
+    width:420px;
+    max-width:92%;
+    padding:40px;
+    border-radius:22px;
+    background:rgba(18,18,18,.85);
+    border:1px solid rgba(255,215,0,.35);
+    backdrop-filter:blur(14px);
+    box-shadow:0 20px 50px rgba(0,0,0,.45);
+}
+
+.register-container h1{
+    text-align:center;
+    color:#FFD700;
+    font-size:34px;
+    margin-bottom:8px;
+}
+
+.register-container h2{
+    text-align:center;
+    color:white;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#ddd;
+    margin-bottom:30px;
+    font-size:15px;
+}
+
+.register-container input{
+    width:100%;
+    padding:15px;
+    margin-bottom:18px;
+    border-radius:12px;
+    border:2px solid #333;
+    background:#111;
+    color:white;
+    font-size:16px;
+    outline:none;
+}
+
+.register-container input:focus{
+    border-color:#FFD700;
+}
+
+.register-container button{
+    width:100%;
+    padding:15px;
+    margin-top:10px;
+    border:none;
+    border-radius:12px;
+    background:#FFD700;
+    color:#111;
+    font-size:17px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.register-container button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 20px rgba(255,215,0,.45);
+}
+
+#drawBtn{
+    background:#28a745;
+    color:white;
+}
+
+#result{
+    margin-top:25px;
+    text-align:center;
+    color:#FFD700;
+    font-size:18px;
+    font-weight:bold;
+}
+
+@media(max-width:768px){
+
+.register-container{
+    width:95%;
+    padding:25px;
+}
+
+.register-container h1{
+    font-size:28px;
+}
+
+.register-container h2{
+    font-size:22px;
+}
+
+}

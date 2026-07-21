@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Player Registration | BERCHKO Tournament</title>
+
+    <link rel="stylesheet" href="css/register.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<div class="register-container">
+
+    <h1>🏆 BERCHKO TOURNAMENT</h1>
+
+    <h2>PLAYER REGISTRATION</h2>
+
+    <p class="subtitle">
+        Register yourself and draw your tournament group.
+    </p>
+
+    <input
+        type="text"
+        id="playerName"
+        placeholder="Full Name">
+
+    <input
+        type="tel"
+        id="phone"
+        placeholder="Phone Number">
+
+    <button id="registerBtn">
+        ⚽ Register
+    </button>
+
+    <button
+        id="drawBtn"
+        style="display:none;">
+        🎲 Draw My Group
+    </button>
+
+    <div id="result"></div>
+
+</div>
+
+<script type="module" src="js/register.js"></script>
+
+</body>
+</html>
