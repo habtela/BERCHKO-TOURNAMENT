@@ -261,3 +261,68 @@
     border-color:#FFD700;
     transform:translateY(-2px);
 }
+/* =====================================
+   MOBILE RESPONSIVE ADMIN DASHBOARD
+===================================== */
+
+@media (max-width: 768px){
+
+.admin-dashboard{
+    margin:90px 12px 30px;
+    padding:10px;
+}
+
+.admin-title{
+    font-size:28px;
+    letter-spacing:1px;
+}
+
+.admin-grid{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.admin-card{
+    width:100%;
+    padding:18px;
+    border-radius:15px;
+}
+
+.admin-card h2{
+    font-size:22px;
+}
+
+.admin-card input,
+.admin-card select,
+.admin-card button{
+    width:100%;
+    font-size:16px;
+    padding:14px;
+    margin-bottom:12px;
+    box-sizing:border-box;
+}
+
+.player-item,
+.match-item{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+}
+
+.player-item button,
+.match-item button{
+    width:100%;
+    height:45px;
+    font-size:15px;
+    border-radius:10px;
+}
+
+#playerList,
+#matchList{
+    max-height:350px;
+    overflow-y:auto;
+}
+
+}
