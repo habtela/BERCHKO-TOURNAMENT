@@ -61,11 +61,28 @@ async function registerPlayer() {
         alert(error.message);
         return;
     }
+    localStorage.setItem("currentPlayer",name);
 
-    result.innerHTML = "✅ Registration Successful";
+    result.innerHTML = `
+<div class="success-card">
 
+<h2>✅ Registration Successful</h2>
+
+<p>
+You can now draw your tournament group.
+</p>
+
+</div>
+`;
     registerBtn.style.display = "none";
     drawBtn.style.display = "block";
+    setTimeout(() => {
+
+    drawBtn.scrollIntoView({
+        behavior: "smooth"
+    });
+
+}, 500);
 }
 
 // ===============================
@@ -73,18 +90,36 @@ async function registerPlayer() {
 // ===============================
 async function drawGroup() {
 
-    const name = playerName.value.trim();
+    const name = localStorage.getItem("currentPlayer");
 
-    const { data: currentPlayer, error: playerError } = await supabase
+if (!name) {
+    alert("Please register first.");
+    return;
+}
+
+let currentPlayer = null;
+
+for (let i = 0; i < 5; i++) {
+
+    const { data } = await supabase
         .from("registrations")
         .select("*")
         .eq("player_name", name)
-        .single();
+        .limit(1);
 
-    if (playerError) {
-        alert("Player not found.");
-        return;
+    if (data && data.length > 0) {
+        currentPlayer = data[0];
+        break;
     }
+
+    await new Promise(resolve => setTimeout(resolve, 500));
+}
+
+if (!currentPlayer) {
+    alert("Player not found.");
+    return;
+}
+
 
     if (currentPlayer.has_drawn) {
         alert("You have already drawn your group.");
@@ -148,4 +183,5 @@ async function drawGroup() {
     `;
 
     drawBtn.disabled = true;
+    localStorage.removeItem("currentPlayer");
 }

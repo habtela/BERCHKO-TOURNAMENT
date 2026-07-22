@@ -1,3 +1,4 @@
+import {supabase} from "./supabase.js"; const db =supabase;
 // ===============================
 // BERCHKO TOURNAMENT 2026
 // ADMIN DASHBOARD
@@ -6,7 +7,6 @@
 
 // Supabase Client
 
-const db = window.client;
 // ===============================
 // ELEMENTS
 // ===============================
@@ -46,6 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
     loadPlayers();
 
 });
+setInterval(() => {
+    loadPlayers();
+}, 5000);
 
 // ===============================
 // BUTTON EVENTS
@@ -72,7 +75,7 @@ async function savePlayer() {
 
     // Check if player already exists
     const { data: existingPlayer, error: checkError } = await db
-        .from("players")
+        .from("registrations")
         .select("*")
         .ilike("player_name", name);
 
@@ -117,7 +120,7 @@ async function savePlayer() {
 async function loadPlayers() {
 
     const { data, error } = await db
-        .from("players")
+        .from("registrations")
         .select("*")
         .order("id", { ascending: true });
 
@@ -128,12 +131,33 @@ async function loadPlayers() {
 
     playerList.innerHTML = "";
 
+    if (!data || data.length === 0) {
+    playerList.innerHTML = `
+        <div class="empty-state">
+            <h3>No Registered Players</h3>
+            <p>Players will appear here after registration.</p>
+        </div>
+    `;
+    return;
+}
+
     data.forEach((player, index) => {
 
        playerList.innerHTML +=`
 <div class="player-item">
-    <span>${index + 1}. ${player.player_name}</span>
+    <span>
+    ${index + 1}. ${player.player_name}
+    <br>
+    <small style="color:#FFD700;">
+🏆 ${player.group_name || "Not Drawn Yet"}
+</small>
 
+<br>
+
+<small style="color:#8BC34A;">
+📅 ${player.match_date || "No Match"}
+</small>
+</span>
     <div>
         <button onclick="editPlayer(${player.id}, '${player.player_name}')">
             ✏ Edit
@@ -156,7 +180,7 @@ async function loadPlayers() {
 async function drawGroups() {
 
     const { data: players, error } = await db
-        .from("players")
+        .from("registrations")
         .select("*")
         .order("id", { ascending: true });
 
@@ -198,69 +222,27 @@ async function drawGroups() {
     loadPlayers();
 
 }
-async function deletePlayer(id){
+async function deletePlayer(id) {
 
-    if(!confirm("Delete this player?")) return;
+    if (!confirm("Delete this player?")) return;
 
     const { error } = await db
-        .from("players")
+        .from("registrations")
         .delete()
         .eq("id", id);
 
-    if(error){
+    if (error) {
+        console.log(error);
         alert("Delete failed!");
-        console.log(error);
         return;
     }
 
-    alert("Player deleted.");
+    alert("Player Deleted Successfully");
+
     loadPlayers();
-
 }
-saveMatchBtn.addEventListener("click", saveMatch);
-
-async function saveMatch(){
-
-    if(
-        teamOne.value === "" ||
-        teamTwo.value === "" ||
-        matchDate.value === ""
-    ){
-        alert("Please fill all match information");
-        return;
-    }
-
-
-    const { error } = await db
-        .from("matches")
-        .insert([
-            {
-                team_one: teamOne.value,
-                team_two: teamTwo.value,
-                match_date: matchDate.value,
-                match_time: matchTime.value,
-                stadium: stadium.value
-            }
-        ]);
-
-
-    if(error){
-        console.log(error);
-        alert(error.message);
-        return;
-    }
-
-
-    alert("⚽ Match Added Successfully!");
-
-
-    teamOne.value = "";
-    teamTwo.value = "";
-    matchDate.value = "";
-    matchTime.value = "";
-    stadium.value = "";
-
-}
+window.editPlayer = editPlayer;
+window.deletePlayer = deletePlayer;
 // ===============================
 // DELETE MATCH
 // ===============================
@@ -296,8 +278,81 @@ async function deleteMatch(id){
     alert("🗑 Match deleted successfully");
 
 
+
     loadMatches();
 
+
+}
+
+// ===============================
+// SAVE MATCH
+// ===============================
+
+async function saveMatch() {
+
+    if (
+        teamOne.value === "" ||
+        teamTwo.value === "" ||
+        matchDate.value === "" ||
+        matchTime.value === "" ||
+        stadium.value === ""
+    ) {
+        alert("Please fill all match information.");
+        return;
+    }
+
+    const { error } = await db
+        .from("matches")
+        .insert([
+            {
+                team_one: teamOne.value,
+                team_two: teamTwo.value,
+                match_date: matchDate.value,
+                match_time: matchTime.value,
+                stadium: stadium.value
+            }
+        ]);
+
+    if (error) {
+        console.log(error);
+        alert(error.message);
+        return;
+    }
+
+    // Update Team One players
+
+await db
+.from("registrations")
+.update({
+    match_date: matchDate.value,
+    match_time: matchTime.value,
+    opponent: teamTwo.value,
+    stadium: stadium.value
+})
+.eq("group_name", teamOne.value);
+
+
+// Update Team Two players
+
+await db
+.from("registrations")
+.update({
+    match_date: matchDate.value,
+    match_time: matchTime.value,
+    opponent: teamOne.value,
+    stadium: stadium.value
+})
+.eq("group_name", teamTwo.value);
+
+    alert("✅ Match Added Successfully");
+
+    teamOne.value = "";
+    teamTwo.value = "";
+    matchDate.value = "";
+    matchTime.value = "";
+    stadium.value = "";
+
+    loadMatches();
 
 }
 // ===============================
@@ -352,4 +407,26 @@ async function loadMatches(){
 
     });
 
+}
+async function editPlayer(id, currentName) {
+
+    const newName = prompt("Edit Player Name", currentName);
+
+    if (!newName) return;
+
+    const { error } = await db
+        .from("registrations")
+        .update({
+            player_name: newName
+        })
+        .eq("id", id);
+
+    if (error) {
+        alert(error.message);
+        return;
+    }
+
+    alert("✅ Player Updated");
+
+    loadPlayers();
 }

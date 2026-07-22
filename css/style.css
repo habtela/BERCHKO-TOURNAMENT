@@ -515,3 +515,134 @@ select option{
 select:focus{
     border-color:#FFD700;
 }
+.group-count{
+    text-align:center;
+    color:#FFD700;
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.group-card ul{
+    list-style:none;
+    padding:0;
+}
+
+.group-card ul li{
+    background:rgba(255,255,255,.08);
+    border-left:4px solid #00ff88;
+    margin:10px 0;
+    padding:12px 15px;
+    border-radius:10px;
+    color:#fff;
+    font-weight:600;
+    transition:.3s;
+}
+
+.group-card ul li:hover{
+    transform:translateX(8px);
+    background:rgba(0,255,136,.15);
+}
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width:768px){
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+overflow-x:hidden;
+}
+
+.navbar{
+padding:15px;
+flex-direction:column;
+gap:15px;
+}
+
+.nav-menu{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+}
+
+.nav-menu li a{
+font-size:14px;
+padding:8px 14px;
+}
+
+.page-title{
+font-size:30px;
+text-align:center;
+}
+
+.hero h1{
+font-size:34px;
+}
+
+.hero p{
+font-size:16px;
+padding:0 15px;
+}
+
+.search-box{
+width:92%;
+margin:auto;
+}
+
+.search-box input{
+width:100%;
+font-size:18px;
+padding:15px;
+border-radius:15px;
+}
+
+.search-box button{
+width:100%;
+margin-top:12px;
+padding:15px;
+font-size:18px;
+border-radius:15px;
+}
+
+.player-card{
+width:95%;
+margin:auto;
+padding:20px;
+}
+
+.groups-container{
+grid-template-columns:1fr;
+gap:25px;
+}
+
+.group-card{
+width:95%;
+margin:auto;
+}
+
+.match-card{
+width:95%;
+margin:auto;
+}
+
+.rules-container{
+width:95%;
+margin:auto;
+padding:20px;
+}
+
+button{
+min-height:50px;
+}
+
+input{
+min-height:50px;
+font-size:17px;
+}
+
+}
