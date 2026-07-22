@@ -32,12 +32,43 @@ async function searchPlayer() {
         result.innerHTML = "<p class='not-found'>Database Error</p>";
         return;
     }
+if (!playerData || playerData.length === 0) {
 
-    if (!playerData || playerData.length === 0){
-        result.innerHTML = "<p class='not-found'>❌ Player Not Found</p>";
-        return;
+    const { data: suggestions } = await supabase
+        .from("registrations")
+        .select("player_name")
+        .ilike("player_name", `%${name.substring(0,3)}%`)
+        .limit(5);
+
+    if (suggestions && suggestions.length > 0) {
+
+        let list = "";
+
+        suggestions.forEach(player => {
+            list += `<li>${player.player_name}</li>`;
+        });
+
+        result.innerHTML = ` 
+            <div class="player-card">
+                <h2>❌ Player Not Found</h2>
+                <p>Did you mean one of these?</p>
+                <ul>${list}</ul>
+            </div>
+        `;
+
+    } else {
+
+        result.innerHTML = `
+            <div class="player-card">
+                <h2>❌ Player Not Found</h2>
+                <p>No similar player was found.</p>
+            </div>
+        `;
     }
 
+    return;
+}
+   
     const player = playerData[0];
 
     const { data: match } = await supabase
