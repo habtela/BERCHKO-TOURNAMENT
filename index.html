@@ -42,6 +42,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -57,6 +58,7 @@
         <li><a href="index.html" class="active">HOME</a></li>
         <li><a href="search.html">SEARCH PLAYER</a></li>
         <li><a href="groups.html">GROUPS</a></li>
+        <li><a href="results.html">RESULTS</a></li>
         <li><a href="schedule.html">MATCHES</a></li>
         <li><a href="rules.html">📜 RULES</a></li>
         <li><a href="admin.html">ADMIN</a></li>
@@ -64,38 +66,73 @@
 
 </header>
 
-
 <section class="hero">
 
-    <div class="hero-overlay"></div>
+<div class="hero-overlay"></div>
 
-    <div class="hero-content">
+<div class="hero-content">
 
-        <h3 class="season">
-            SUMMER TOURNAMENT 2026
-        </h3>
+<h4>BERCHKO 433</h4>
 
-        <h1>
-            BERCHKO FOOTBALL TOURNAMENT
-        </h1>
+<h1>SUMMER TOURNAMENT</h1>
 
-        <p class="description">
-            Search your team, view your group, check your match date and follow every tournament update.
-        </p>
+<p>
+The biggest football tournament of 2026.
+Register your team, check fixtures, follow live scores,
+and become the champion.
+</p>
 
-        <div class="hero-buttons">
+<div class="hero-buttons">
 
-            <a href="search.html" class="btn-primary">
-                🔎 Search Player
-            </a>
+<a href="register.html" class="btn-gold">
+Join Tournament
+</a>
 
-            <a href="groups.html" class="btn-secondary">
-                🏆 View Groups
-            </a>
+<a href="https://t.me/BERCHKO13"
+class="btn-dark" target="_blank">
 
-        </div>
+Telegram Channel
 
+</a>
+
+</div>
+
+</div>
+
+</section>
+</div>
+<section class="stats-section">
+
+    <div class="stat-card">
+        <h2>👥</h2>
+        <h3>Registered Players</h3>
+        <span id="totalPlayers">37</span>
     </div>
+
+    <div class="stat-card">
+        <h2>⚽</h2>
+        <h3>Matches</h3>
+        <span id="totalMatches">0</spa
+
+    <div class="stat-card">
+        <h2>🏆</h2>
+        <h3>Champion</h3>
+        <span>Coming Soon</span>
+    </div>
+
+    <div class="stat-card">
+        <h2>⭐</h2>
+        <h3>Top Scorer</h3>
+        <span id="bestScorer">---</span>
+    </div>
+
+</section>
+
+<section class="topscorers-section">
+
+    <h2>🇪🇹</h2>
+
+    <div id="topScorersList"></div>
 
 </section>
 
@@ -131,10 +168,28 @@
     <p>
         © 2026 BERCHKO SUMMER TOURNAMENT
     </p>
+    <div class="telegram-box">
+
+    <h3>📢 Join Our Telegram Channel</h3>
+
+    <p>
+        Get Tournament Updates, Match Results and Announcements.
+    </p>
+
+    <a href="https://t.me/BERCHKO13"
+   target="_blank"
+   class="telegram-btn">
+
+    <i class="fa-brands fa-telegram"></i>
+    Join BERCHKO Channel
+
+</a>
+</div>
 
 </footer>
 
 <script src="js/main.js"></script>
+<script type="module" src="js/home.js"></script>
 
 </body>
 </html>

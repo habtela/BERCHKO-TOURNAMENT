@@ -175,3 +175,20 @@
     font-weight:bold;
 
 }
+.match-card{
+    background:#1f1f1f;
+    color:white;
+    padding:20px;
+    margin:20px auto;
+    width:90%;
+    max-width:600px;
+    border-radius:15px;
+    border:2px solid gold;
+    text-align:center;
+}
+
+.score{
+    font-size:42px;
+    color:gold;
+    margin:15px 0;
+}

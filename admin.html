@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>BERCHKO | Admin Dashboard</title>
 
     <link rel="stylesheet" href="css/style.css">
@@ -13,115 +12,167 @@
 
 <body>
 
-    <!-- NAVBAR -->
+<header class="navbar">
+    <div class="logo">🏆 BERCHKO</div>
 
-    <header class="navbar">
+    <ul class="nav-menu">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="search.html">SEARCH</a></li>
+        <li><a href="groups.html">GROUPS</a></li>
+        <li><a href="schedule.html">MATCHES</a></li>
+        <li id="adminLink" style="display:none;">
+            <a href="admin.html">ADMIN</a>
+        </li>
+    </ul>
+</header>
 
-        <div class="logo">
-            🏆 BERCHKO
-        </div>
+<main class="admin-dashboard">
 
-        <ul class="nav-menu">
-            <li><a href="index.html">HOME</a></li>
-            <li><a href="search.html">SEARCH</a></li>
-            <li><a href="groups.html">GROUPS</a></li>
-            <li><a href="schedule.html">MATCHES</a></li>
-            <li id="adminLink" style="display:none;">
-<a href="admin.html">ADMIN</a>
-</li>   
-        </ul>
+<h1 class="admin-title">
+🛡 ADMIN DASHBOARD
+</h1>
 
-    </header>
+<div class="admin-grid">
 
-    <!-- DASHBOARD -->
+<!-- PLAYER -->
 
-    <main class="admin-dashboard">
+<div class="admin-card">
 
-        <h1 class="admin-title">
-            🛡️ ADMIN DASHBOARD
-        </h1>
+<h2>👤 Add New Player</h2>
 
-        <div class="admin-grid">
+<input
+type="text"
+id="playerName"
+placeholder="Player Name">
 
-            <!-- PLAYER CARD -->
+<button id="savePlayer">
+➕ Add Player
+</button>
 
-            <div class="admin-card">
+<button id="drawGroups">
+🎲 Draw Groups
+</button>
 
-                <h2>👤 Add New Player</h2>
+</div>
 
-                <input
-                    type="text"
-                    id="playerName"
-                    placeholder="Player Name">
 
-                <button id="savePlayer">
-                    ➕ Add Player
-                </button>
+<!-- REGISTERED PLAYERS -->
 
-                <button id="drawGroups">
-                    🎲 Draw Groups
-                </button>
-
-            </div>
-
-            <!-- PLAYER LIST -->
-
-            <div class="admin-card">
+<div class="admin-card">
 
 <h2>📋 Registered Players</h2>
 
 <div id="playerList" class="player-list"></div>
 
-            </div>
+</div>
 
-            <!-- MATCH CARD -->
 
-            <div class="admin-card">
+<!-- MATCH -->
 
-                <h2>⚽ Add Match</h2>
+<div class="admin-card">
 
-                <select id="teamOne">
-    <option value="">Select Team One</option>
-    <option value="Group A">Group A</option>
-    <option value="Group B">Group B</option>
-    <option value="Group C">Group C</option>
-    <option value="Group D">Group D</option>
-    <option value="Group E">Group E</option>
-    <option value="Group F">Group F</option>
+<h2>⚽ Add Match</h2>
+
+<select id="teamOne">
+<option value="">Select Team One</option>
+<option value="Group A">Group A</option>
+<option value="Group B">Group B</option>
+<option value="Group C">Group C</option>
+<option value="Group D">Group D</option>
+<option value="Group E">Group E</option>
+<option value="Group F">Group F</option>
 </select>
-
 
 <select id="teamTwo">
-    <option value="">Select Team Two</option>
-    <option value="Group A">Group A</option>
-    <option value="Group B">Group B</option>
-    <option value="Group C">Group C</option>
-    <option value="Group D">Group D</option>
-    <option value="Group E">Group E</option>
-    <option value="Group F">Group F</option>
+<option value="">Select Team Two</option>
+<option value="Group A">Group A</option>
+<option value="Group B">Group B</option>
+<option value="Group C">Group C</option>
+<option value="Group D">Group D</option>
+<option value="Group E">Group E</option>
+<option value="Group F">Group F</option>
 </select>
-                <input
-                    type="date"
-                    id="matchDate">
 
-                <input
-                    type="time"
-                    id="matchTime">
+<input type="date" id="matchDate">
 
-                <input
-                    type="text"
-                    id="stadium"
-                    placeholder="Stadium">
+<input type="time" id="matchTime">
 
-                <button id="saveMatch">
-                    💾 Save Match
-                </button>
-                <button id="updateMatch" style="display:none;">
-    ✏ Update Match
+<input
+type="text"
+id="stadium"
+placeholder="Stadium">
+
+<button id="saveMatch">
+💾 Save Match
 </button>
 
-            </div>
-<!-- MATCH MANAGEMENT -->
+<button
+id="updateMatch"
+style="display:none;">
+✏️ Update Match
+</button>
+
+</div>
+
+
+<!-- MATCH RESULT -->
+
+<div class="admin-card">
+
+<h2>🏆 Update Match Result</h2>
+
+<select id="matchSelect">
+<option value="">Select Match</option>
+</select>
+
+<input
+type="number"
+id="teamOneScore"
+placeholder="Team One Score">
+
+<input
+type="number"
+id="teamTwoScore"
+placeholder="Team Two Score">
+
+<select id="matchStatus">
+<option value="Upcoming">Upcoming</option>
+<option value="Live">Live</option>
+<option value="Finished">Finished</option>
+</select>
+
+<select id="manOfMatch">
+<option value="">Select Man of the Match</option>
+</select>
+
+<button id="saveResultBtn">
+Save Match Result
+</button>
+
+</div>
+
+
+<!-- TOP SCORER -->
+
+<div class="admin-card">
+
+<h2>👑 Top Scorer</h2>
+
+<select id="scorerName">
+<option value="">Select Player</option>
+</select>
+
+<input
+type="number"
+id="goalCount"
+placeholder="Goals">
+
+<button id="saveScorerBtn">
+Save Top Scorer
+</button>
+
+</div>
+<!-- REGISTERED MATCHES -->
 
 <div class="admin-card">
 
@@ -130,17 +181,23 @@
     <div id="matchList"></div>
 
 </div>
-        </div>
 
-    </main>
+</div>
 
-    <!-- SCRIPTS -->
+</main>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- SCRIPTS -->
 
-    <script type="module" src="js/supabase.js"></script>
-    <script type="module" src="js/admin-auth.js"></script>
-    <script type="module" src="js/admin.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script type="module" src="js/supabase.js"></script>
+
+<script type="module" src="js/admin-auth.js"></script>
+
+<script type="module" src="js/admin.js"></script>
+
+<script type="module" src="js/topscorers.js"></script>
+
 
 </body>
 

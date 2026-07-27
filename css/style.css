@@ -646,3 +646,418 @@ font-size:17px;
 }
 
 }
+/* ==========================
+   TOP SCORERS
+========================== */
+
+.topscorers-section,
+.results-section{
+    max-width:1200px;
+    margin:50px auto;
+    padding:25px;
+}
+
+.topscorers-section h2,
+.results-section h2{
+    text-align:center;
+    color:#FFD700;
+    font-size:32px;
+    margin-bottom:25px;
+}
+
+.scorer-card,
+.result-card{
+    background:#111;
+    border:2px solid #FFD700;
+    border-radius:15px;
+    padding:18px;
+    margin:15px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    color:white;
+    transition:.3s;
+}
+
+.scorer-card:hover,
+.result-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 20px gold;
+}
+
+.result-card{
+    flex-direction:column;
+    align-items:flex-start;
+}
+
+.result-card h3{
+    margin-bottom:10px;
+    color:#FFD700;
+}
+
+.result-card p{
+    margin:3px 0;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.scorer-card{
+    flex-direction:column;
+    gap:8px;
+    text-align:center;
+}
+
+.result-card h3{
+    font-size:18px;
+}
+
+}
+.results-section{
+    max-width:1100px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+.result-card{
+    background:#1d1d1d;
+    border:2px solid gold;
+    border-radius:15px;
+    padding:20px;
+    margin:20px 0;
+    color:white;
+    transition:.3s;
+}
+
+.result-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 20px gold;
+}
+
+.result-card h2{
+    color:gold;
+    margin-bottom:10px;
+}
+
+.result-card p{
+    margin:8px 0;
+}
+/* Top Scorer Buttons */
+
+.scorer-card button{
+    margin-left:8px;
+    padding:8px 14px;
+    border:none;
+    border-radius:8px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.scorer-card button:first-of-type{
+    background:#f1c40f;
+    color:#000;
+}
+
+.scorer-card button:first-of-type:hover{
+    background:#ffd700;
+    transform:scale(1.05);
+}
+
+.scorer-card button:last-of-type{
+    background:#e74c3c;
+    color:#fff;
+}
+
+.scorer-card button:last-of-type:hover{
+    background:#c0392b;
+    transform:scale(1.05);
+}
+.telegram-box{
+
+    text-align:center;
+
+    padding:35px;
+
+    margin-top:40px;
+
+}
+
+.telegram-btn{
+
+    display:inline-block;
+
+    margin-top:15px;
+
+    padding:14px 28px;
+
+    background:#229ED9;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-radius:12px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.telegram-btn:hover{
+
+    background:#0077b6;
+
+    transform:scale(1.05);
+
+}
+.telegram-btn i{
+    margin-right:8px;
+    font-size:18px;
+}
+.hero{
+height:100vh;
+background:url("images/stadium.jpg") center center/cover no-repeat;
+position:relative;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+overflow:hidden;
+}
+
+.hero-overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(
+to bottom,
+rgba(0,0,0,.35),
+rgba(0,0,0,.85)
+);
+backdrop-filter:blur(2px);
+}
+
+.hero-content{
+position:relative;
+z-index:5;
+max-width:900px;
+padding:20px;
+}
+
+.hero h4{
+color:#FFD700;
+font-size:28px;
+letter-spacing:5px;
+margin-bottom:15px;
+}
+
+.hero h1{
+font-size:80px;
+font-weight:900;
+color:white;
+line-height:1.1;
+margin-bottom:20px;
+}
+
+.hero p{
+color:#ddd;
+font-size:22px;
+line-height:1.8;
+margin-bottom:40px;
+}
+
+.hero-buttons{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.btn-gold{
+background:#FFD700;
+padding:18px 40px;
+border-radius:50px;
+font-weight:bold;
+color:#000;
+text-decoration:none;
+transition:.3s;
+}
+
+.btn-dark{
+background:#111;
+border:2px solid gold;
+padding:18px 40px;
+border-radius:50px;
+color:white;
+text-decoration:none;
+transition:.3s;
+}
+
+.btn-gold:hover,
+.btn-dark:hover{
+transform:translateY(-5px);
+box-shadow:0 0 25px gold;
+}
+.stats-section{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:25px;
+
+max-width:1200px;
+
+margin:-70px auto 70px;
+
+padding:0 20px;
+
+position:relative;
+
+z-index:20;
+
+}
+
+.stat-card{
+
+background:rgba(20,20,20,.92);
+
+backdrop-filter:blur(10px);
+
+border:2px solid gold;
+
+border-radius:20px;
+
+padding:35px;
+
+text-align:center;
+
+transition:.35s;
+
+}
+
+.stat-card:hover{
+
+transform:translateY(-10px);
+
+box-shadow:0 0 25px gold;
+
+}
+
+.stat-card h2{
+
+font-size:50px;
+
+margin-bottom:15px;
+
+}
+
+.stat-card h3{
+
+color:#FFD700;
+
+margin-bottom:15px;
+
+font-size:20px;
+
+}
+
+.stat-card span{
+
+font-size:32px;
+
+font-weight:bold;
+
+color:white;
+
+}
+.live-banner{
+
+max-width:1200px;
+
+margin:60px auto;
+
+padding:35px;
+
+background:#111;
+
+border:3px solid gold;
+
+border-radius:25px;
+
+text-align:center;
+
+box-shadow:0 0 35px rgba(255,215,0,.3);
+
+}
+
+.live-banner h2{
+
+color:#FFD700;
+
+margin-bottom:30px;
+
+font-size:34px;
+
+}
+
+.live-score{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+gap:20px;
+
+flex-wrap:wrap;
+
+}
+
+.team{
+
+flex:1;
+
+}
+
+.team h1{
+
+color:white;
+
+font-size:42px;
+
+}
+
+.score-box{
+
+padding:20px 45px;
+
+background:#1b1b1b;
+
+border-radius:20px;
+
+}
+
+.score-box h1{
+
+font-size:70px;
+
+color:#FFD700;
+
+}
+
+.score-box p{
+
+margin-top:10px;
+
+font-size:20px;
+
+font-weight:bold;
+
+color:#2ecc71;
+
+}

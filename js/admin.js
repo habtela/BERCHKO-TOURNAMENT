@@ -1,125 +1,22 @@
-import {supabase} from "./supabase.js"; const db =supabase;
-// ===============================
-// BERCHKO TOURNAMENT 2026
-// ADMIN DASHBOARD
-// PART 1
-// ===============================
+import { supabase } from "./supabase.js";
 
-// Supabase Client
+// ==========================
+// HTML ELEMENTS
+// ==========================
 
-// ===============================
-// ELEMENTS
-// ===============================
-const matchList = document.getElementById("matchList");
-const updateMatchBtn = document.getElementById("updateMatch");
-
-let editMatchId = null;
-
-const playerInput = document.getElementById("playerName");
-
-const savePlayerBtn = document.getElementById("savePlayer");
-
-const drawGroupsBtn = document.getElementById("drawGroups");
-
+const playerName = document.getElementById("playerName");
+const savePlayer = document.getElementById("savePlayer");
+const drawGroups = document.getElementById("drawGroups");
 const playerList = document.getElementById("playerList");
 
-const saveMatchBtn = document.getElementById("saveMatch");
 
-saveMatchBtn.addEventListener("click", saveMatch);
-
-const teamOne = document.getElementById("teamOne");
-
-const teamTwo = document.getElementById("teamTwo");
-
-const matchDate = document.getElementById("matchDate");
-
-const matchTime = document.getElementById("matchTime");
-
-const stadium = document.getElementById("stadium");
-
-// ===============================
-// START APP
-// ===============================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    loadPlayers();
-
-});
-setInterval(() => {
-    loadPlayers();
-}, 5000);
-
-// ===============================
-// BUTTON EVENTS
-// ===============================
-
-savePlayerBtn.addEventListener("click", savePlayer);
-
-drawGroupsBtn.addEventListener("click", drawGroups);
-
-saveMatchBtn.addEventListener("click", saveMatch);
-
-// ===============================
-// SAVE PLAYER
-// ===============================
-
-async function savePlayer() {
-
-    const name = playerInput.value.trim();
-
-    if (name === "") {
-        alert("Please enter player name.");
-        return;
-    }
-
-    // Check if player already exists
-    const { data: existingPlayer, error: checkError } = await db
-        .from("registrations")
-        .select("*")
-        .ilike("player_name", name);
-
-    if (checkError) {
-        console.log(checkError);
-        alert("Database Error");
-        return;
-    }
-
-    if (existingPlayer.length > 0) {
-        alert("Player already exists.");
-        return;
-    }
-
-    // Save player
-    const { error } = await db
-        .from("players")
-        .insert([
-            {
-                player_name: name
-            }
-        ]);
-
-    if (error) {
-        console.log(error);
-        alert("Failed to save player.");
-        return;
-    }
-
-    alert("✅ Player Added Successfully");
-
-    playerInput.value = "";
-
-    loadPlayers();
-
-}
-
-// ===============================
+// ==========================
 // LOAD PLAYERS
-// ===============================
+// ==========================
 
 async function loadPlayers() {
 
-    const { data, error } = await db
+    const { data, error } = await supabase
         .from("registrations")
         .select("*")
         .order("id", { ascending: true });
@@ -131,274 +28,16 @@ async function loadPlayers() {
 
     playerList.innerHTML = "";
 
-    if (!data || data.length === 0) {
-    playerList.innerHTML = `
-        <div class="empty-state">
-            <h3>No Registered Players</h3>
-            <p>Players will appear here after registration.</p>
-        </div>
-    `;
-    return;
-}
+    data.forEach(player => {
 
-    data.forEach((player, index) => {
+        playerList.innerHTML += `
 
-       playerList.innerHTML +=`
-<div class="player-item">
-    <span>
-    ${index + 1}. ${player.player_name}
-    <br>
-    <small style="color:#FFD700;">
-🏆 ${player.group_name || "Not Drawn Yet"}
-</small>
+        <div class="player-item">
 
-<br>
+            <span>${player.player_name}</span>
 
-<small style="color:#8BC34A;">
-📅 ${player.match_date || "No Match"}
-</small>
-</span>
-    <div>
-        <button onclick="editPlayer(${player.id}, '${player.player_name}')">
-            ✏ Edit
-        </button>
-
-        <button onclick="deletePlayer(${player.id})">
-            🗑 Delete
-        </button>
-    </div>
-</div>
-`;
-
-    });
-
-}
-// ===============================
-// DRAW GROUPS
-// ===============================
-
-async function drawGroups() {
-
-    const { data: players, error } = await db
-        .from("registrations")
-        .select("*")
-        .order("id", { ascending: true });
-
-    if (error) {
-        console.log(error);
-        alert("Failed to load players.");
-        return;
-    }
-
-    if (players.length === 0) {
-        alert("No players found.");
-        return;
-    }
-
-    // Shuffle players
-    players.sort(() => Math.random() - 0.5);
-
-    const groups = ["Group A", "Group B", "Group C", "Group D", "Group E", "Group F"];
-
-    for (let i = 0; i < players.length; i++) {
-
-        const group = groups[i % groups.length];
-
-        const { error } = await db
-            .from("players")
-            .update({
-                group_name: group
-            })
-            .eq("id", players[i].id);
-
-        if (error) {
-            console.log(error);
-        }
-
-    }
-
-    alert("🏆 Groups Created Successfully!");
-
-    loadPlayers();
-
-}
-async function deletePlayer(id) {
-
-    if (!confirm("Delete this player?")) return;
-
-    const { error } = await db
-        .from("registrations")
-        .delete()
-        .eq("id", id);
-
-    if (error) {
-        console.log(error);
-        alert("Delete failed!");
-        return;
-    }
-
-    alert("Player Deleted Successfully");
-
-    loadPlayers();
-}
-window.editPlayer = editPlayer;
-window.deletePlayer = deletePlayer;
-// ===============================
-// DELETE MATCH
-// ===============================
-
-async function deleteMatch(id){
-
-
-    if(!confirm("Delete this match?")){
-        return;
-    }
-
-
-
-    const { error } = await db
-        .from("matches")
-        .delete()
-        .eq("id", id);
-
-
-
-    if(error){
-
-        console.log(error);
-
-        alert("❌ Delete failed");
-
-        return;
-
-    }
-
-
-
-    alert("🗑 Match deleted successfully");
-
-
-
-    loadMatches();
-
-
-}
-
-// ===============================
-// SAVE MATCH
-// ===============================
-
-async function saveMatch() {
-
-    if (
-        teamOne.value === "" ||
-        teamTwo.value === "" ||
-        matchDate.value === "" ||
-        matchTime.value === "" ||
-        stadium.value === ""
-    ) {
-        alert("Please fill all match information.");
-        return;
-    }
-
-    const { error } = await db
-        .from("matches")
-        .insert([
-            {
-                team_one: teamOne.value,
-                team_two: teamTwo.value,
-                match_date: matchDate.value,
-                match_time: matchTime.value,
-                stadium: stadium.value
-            }
-        ]);
-
-    if (error) {
-        console.log(error);
-        alert(error.message);
-        return;
-    }
-
-    // Update Team One players
-
-await db
-.from("registrations")
-.update({
-    match_date: matchDate.value,
-    match_time: matchTime.value,
-    opponent: teamTwo.value,
-    stadium: stadium.value
-})
-.eq("group_name", teamOne.value);
-
-
-// Update Team Two players
-
-await db
-.from("registrations")
-.update({
-    match_date: matchDate.value,
-    match_time: matchTime.value,
-    opponent: teamOne.value,
-    stadium: stadium.value
-})
-.eq("group_name", teamTwo.value);
-
-    alert("✅ Match Added Successfully");
-
-    teamOne.value = "";
-    teamTwo.value = "";
-    matchDate.value = "";
-    matchTime.value = "";
-    stadium.value = "";
-
-    loadMatches();
-
-}
-// ===============================
-// LOAD MATCHES
-// ===============================
-
-loadMatches();
-
-
-async function loadMatches(){
-
-    const { data, error } = await db
-        .from("matches")
-        .select("*")
-        .order("id", { ascending: true });
-
-
-    if(error){
-        console.log(error);
-        return;
-    }
-
-
-    matchList.innerHTML = "";
-
-
-    data.forEach(match => {
-
-        matchList.innerHTML += ` 
-
-        <div class="match-item">
-
-            <h3>
-            ${match.team_one}
-            ⚔️
-            ${match.team_two}
-            </h3>
-
-            <p>📅 ${match.match_date}</p>
-
-            <p>⏰ ${match.match_time}</p>
-
-            <p>🏟 ${match.stadium}</p>
-
-            <button onclick="deleteMatch(${match.id})">
-            🗑 Delete
+            <button onclick="deletePlayer(${player.id})">
+                🗑 Delete
             </button>
 
         </div>
@@ -408,25 +47,357 @@ async function loadMatches(){
     });
 
 }
-async function editPlayer(id, currentName) {
 
-    const newName = prompt("Edit Player Name", currentName);
+loadPlayers();
 
-    if (!newName) return;
 
-    const { error } = await db
+// ==========================
+// ADD PLAYER
+// ==========================
+
+savePlayer.addEventListener("click", async () => {
+
+    if (playerName.value.trim() === "") {
+
+        alert("Enter Player Name");
+
+        return;
+
+    }
+
+    const { error } = await supabase
+
         .from("registrations")
-        .update({
-            player_name: newName
-        })
+
+        .insert([
+
+            {
+
+                player_name: playerName.value
+
+            }
+
+        ]);
+
+    if (error) {
+
+        console.log(error);
+
+        alert(error.message);
+
+        return;
+
+    }
+
+    alert("✅ Player Added");
+
+    playerName.value = "";
+
+    loadPlayers();
+
+});
+
+
+// ==========================
+// DELETE PLAYER
+// ==========================
+
+async function deletePlayer(id) {
+
+    if (!confirm("Delete Player?")) return;
+
+    const { error } = await supabase
+
+        .from("registrations")
+
+        .delete()
+
         .eq("id", id);
 
     if (error) {
+
         alert(error.message);
+
+        return;
+
+    }
+
+    loadPlayers();
+
+}
+
+window.deletePlayer = deletePlayer;
+
+
+// ==========================
+// DRAW GROUPS
+// ==========================
+
+drawGroups.addEventListener("click", () => {
+
+    alert("Group Draw will be added in Part 2 🔥");
+
+});
+// ==========================
+// MATCH ELEMENTS
+// ==========================
+
+const teamOne = document.getElementById("teamOne");
+const teamTwo = document.getElementById("teamTwo");
+const matchDate = document.getElementById("matchDate");
+const matchTime = document.getElementById("matchTime");
+const stadium = document.getElementById("stadium");
+const saveMatch = document.getElementById("saveMatch");
+const matchList = document.getElementById("matchList");
+
+
+// ==========================
+// LOAD MATCHES
+// ==========================
+
+async function loadMatches() {
+
+    const { data, error } = await supabase
+        .from("matches")
+        .select("*")
+        .order("id", { ascending: true });
+
+    if (error) {
+        console.log(error);
         return;
     }
 
-    alert("✅ Player Updated");
+    matchList.innerHTML = "";
 
-    loadPlayers();
+    data.forEach(match => {
+
+        matchList.innerHTML += `
+
+        <div class="match-item">
+
+            <h3>${match.team_one} ⚔️ ${match.team_two}</h3>
+
+            <p>📅 ${match.match_date}</p>
+
+            <p>⏰ ${match.match_time}</p>
+
+            <p>🏟 ${match.stadium}</p>
+
+            <button onclick="deleteMatch(${match.id})">
+                🗑 Delete
+            </button>
+
+        </div>
+
+        `;
+
+    });
+
 }
+
+loadMatches();
+
+
+// ==========================
+// SAVE MATCH
+// ==========================
+
+saveMatch.addEventListener("click", async () => {
+
+    if (
+        teamOne.value === "" ||
+        teamTwo.value === "" ||
+        matchDate.value === "" ||
+        matchTime.value === "" ||
+        stadium.value === ""
+    ) {
+
+        alert("Fill all match information");
+
+        return;
+
+    }
+
+    const { error } = await supabase
+        .from("matches")
+        .insert([
+            {
+                team_one: teamOne.value,
+                team_two: teamTwo.value,
+                match_date: matchDate.value,
+                match_time: matchTime.value,
+                stadium: stadium.value,
+                status: "Upcoming"
+            }
+        ]);
+
+    if (error) {
+
+        console.log(error);
+
+        alert(error.message);
+
+        return;
+
+    }
+
+    alert("✅ Match Added");
+
+    teamOne.value = "";
+    teamTwo.value = "";
+    matchDate.value = "";
+    matchTime.value = "";
+    stadium.value = "";
+
+    loadMatches();
+
+});
+
+
+// ==========================
+// DELETE MATCH
+// ==========================
+
+async function deleteMatch(id) {
+
+    if (!confirm("Delete Match?")) return;
+
+    const { error } = await supabase
+        .from("matches")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+
+        alert(error.message);
+
+        return;
+
+    }
+
+    loadMatches();
+
+}
+
+window.deleteMatch = deleteMatch;
+// ==========================
+// RESULT ELEMENTS
+// ==========================
+
+const matchSelect = document.getElementById("matchSelect");
+const teamOneScore = document.getElementById("teamOneScore");
+const teamTwoScore = document.getElementById("teamTwoScore");
+const matchStatus = document.getElementById("matchStatus");
+const manOfMatch = document.getElementById("manOfMatch");
+const saveResultBtn = document.getElementById("saveResultBtn");
+
+
+// ==========================
+// LOAD MATCH SELECT
+// ==========================
+
+async function loadMatchSelect() {
+
+    const { data, error } = await supabase
+        .from("matches")
+        .select("*")
+        .order("id", { ascending: true });
+
+    if (error) {
+
+        console.log(error);
+
+        return;
+
+    }
+
+    matchSelect.innerHTML =
+        `<option value="">Select Match</option>`;
+
+    data.forEach(match => {
+
+        matchSelect.innerHTML += `
+            <option value="${match.id}">
+                ${match.team_one} vs ${match.team_two}
+            </option>
+        `;
+
+    });
+
+}
+
+loadMatchSelect();
+
+
+// ==========================
+// LOAD PLAYERS
+// ==========================
+
+async function loadManOfMatchPlayers() {
+
+    const { data } = await supabase
+        .from("registrations")
+        .select("player_name")
+        .order("player_name");
+
+    manOfMatch.innerHTML =
+        `<option value="">Select Player</option>`;
+
+    data.forEach(player => {
+
+        manOfMatch.innerHTML += `
+            <option value="${player.player_name}">
+                ${player.player_name}
+            </option>
+        `;
+
+    });
+
+}
+
+loadManOfMatchPlayers();
+
+
+// ==========================
+// SAVE RESULT
+// ==========================
+
+saveResultBtn.addEventListener("click", async () => {
+
+    if (matchSelect.value === "") {
+
+        alert("Select Match");
+
+        return;
+
+    }
+
+    const { error } = await supabase
+
+        .from("matches")
+
+        .update({
+
+            team_one_score: Number(teamOneScore.value),
+
+            team_two_score: Number(teamTwoScore.value),
+
+            status: matchStatus.value,
+
+            man_of_match: manOfMatch.value
+
+        })
+
+        .eq("id", matchSelect.value);
+
+    if (error) {
+
+        alert(error.message);
+
+        return;
+
+    }
+
+    alert("✅ Match Result Saved");
+
+});

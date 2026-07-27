@@ -5,7 +5,9 @@
 
 
 // Supabase Client
-const db = window.client;
+import { supabase } from "./supabase.js";
+
+const db = supabase;
 
 
 // Load matches when page opens
