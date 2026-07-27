@@ -855,8 +855,8 @@ margin-bottom:15px;
 }
 
 .hero h1{
-font-size:80px;
-font-weight:900;
+font-size:35px;
+font-weight:700;
 color:white;
 line-height:1.1;
 margin-bottom:20px;
@@ -1059,5 +1059,16 @@ font-size:20px;
 font-weight:bold;
 
 color:#2ecc71;
+
+}
+@media (max-width: 768px) {
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
 
 }
