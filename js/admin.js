@@ -357,7 +357,62 @@ async function loadManOfMatchPlayers() {
 
 loadManOfMatchPlayers();
 
+async function updateStanding(teamName, gf, ga, result){
 
+    const { data } = await supabase
+        .from("standings")
+        .select("*")
+        .eq("team", teamName)
+        .single();
+
+    if(!data) return;
+
+    let played = data.played + 1;
+    let win = data.win;
+    let draw = data.draw;
+    let loss = data.loss;
+    let goalsFor = data.gf + gf;
+    let goalsAgainst = data.ga + ga;
+
+    if(result==="win"){
+
+        win++;
+
+    }
+
+    else if(result==="draw"){
+
+        draw++;
+
+    }
+
+    else{
+
+        loss++;
+
+    }
+
+    const gd = goalsFor - goalsAgainst;
+
+    const points = (win * 3) + draw;
+
+    await supabase
+        .from("standings")
+        .update({
+
+            played,
+            win,
+            draw,
+            loss,
+            gf: goalsFor,
+            ga: goalsAgainst,
+            gd,
+            points
+
+        })
+        .eq("team", teamName);
+
+}
 // ==========================
 // SAVE RESULT
 // ==========================
@@ -397,6 +452,52 @@ saveResultBtn.addEventListener("click", async () => {
         return;
 
     }
+    const score1 = Number(teamOneScore.value);
+const score2 = Number(teamTwoScore.value);
+
+let resultOne = "";
+let resultTwo = "";
+
+if (score1 > score2) {
+
+    resultOne = "win";
+    resultTwo = "loss";
+
+}
+
+else if (score1 < score2) {
+
+    resultOne = "loss";
+    resultTwo = "win";
+
+}
+
+else {
+
+    resultOne = "draw";
+    resultTwo = "draw";
+
+}
+
+const { data: selectedMatch } = await supabase
+    .from("matches")
+    .select("team_one,team_two")
+    .eq("id", matchSelect.value)
+    .single();
+
+await updateStanding(
+    selectedMatch.team_one,
+    score1,
+    score2,
+    resultOne
+);
+
+await updateStanding(
+    selectedMatch.team_two,
+    score2,
+    score1,
+    resultTwo
+);
 
     alert("✅ Match Result Saved");
 

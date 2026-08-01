@@ -1,0 +1,123 @@
+.standings-section{
+
+max-width:1300px;
+
+margin:120px auto 60px;
+
+padding:20px;
+
+}
+
+.standings-section h1{
+
+text-align:center;
+
+font-size:42px;
+
+color:#FFD700;
+
+margin-bottom:35px;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+background:rgba(15,15,20,.92);
+
+backdrop-filter:blur(12px);
+
+border-radius:20px;
+
+overflow:hidden;
+
+box-shadow:0 0 30px rgba(255,215,0,.25);
+
+}
+
+thead{
+
+background:linear-gradient(90deg,#FFD700,#FFB300);
+
+}
+
+thead th{
+
+padding:18px;
+
+color:#111;
+
+font-size:18px;
+
+font-weight:700;
+
+}
+
+tbody td{
+
+padding:16px;
+
+text-align:center;
+
+color:white;
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+tbody tr{
+
+transition:.3s;
+
+}
+
+tbody tr:hover{
+
+background:rgba(255,215,0,.12);
+
+}
+
+tbody tr:nth-child(1){
+
+background:rgba(255,215,0,.18);
+
+}
+
+tbody tr:nth-child(2){
+
+background:rgba(255,255,255,.08);
+
+}
+
+tbody tr:nth-child(3){
+
+background:rgba(205,127,50,.12);
+
+}
+
+@media(max-width:900px){
+
+table{
+
+font-size:13px;
+
+}
+
+thead th,
+
+tbody td{
+
+padding:10px 6px;
+
+}
+
+.standings-section h1{
+
+font-size:30px;
+
+}
+
+}

@@ -1,3 +1,4 @@
+const isAdminPage = window.location.pathname.includes("admin");
 import { supabase } from "./supabase.js";
 
 // =====================
@@ -25,21 +26,18 @@ async function loadTopScorers() {
 
        list.innerHTML += `
 <div class="scorer-card">
-
     <span>${index + 1}.</span>
-
     <strong>${player.player_name}</strong>
+    <span>⚽️ ${player.goals}</span>
 
-    <span>⚽ ${player.goals}</span>
-
-    <button onclick="editScorer(${player.id})">
-        ✏ Edit
-    </button>
-
-    <button onclick="deleteScorer(${player.id})">
-        🗑 Delete
-    </button>
-
+    ${
+        isAdminPage
+            ? ` 
+            <button onclick="editScorer(${player.id})">✏️ Edit</button>
+            <button onclick="deleteScorer(${player.id})">🗑 Delete</button>
+               `
+            : ""
+    }
 </div>
 `;
 
