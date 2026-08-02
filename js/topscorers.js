@@ -30,6 +30,49 @@ async function loadPlayers() {
 
 loadPlayers();
 
+const adminList = document.getElementById("adminTopScorers");
+
+async function loadTopScorersAdmin() {
+
+    const { data, error } = await supabase
+        .from("registrations")
+        .select("id, player_name, goals")
+        .gt("goals", 0)
+        .order("goals", { ascending: false });
+
+    if (error) {
+        console.log(error);
+        return;
+    }
+
+    adminList.innerHTML = "";
+
+    data.forEach(player => {
+
+        adminList.innerHTML += `
+        <div class="scorer-card">
+
+            <strong>${player.player_name}</strong>
+
+            <span>⚽ ${player.goals}</span>
+
+            <button onclick="editScorer(${player.id}, '${player.player_name}', ${player.goals})">
+                ✏️ Edit
+            </button>
+
+            <button onclick="deleteScorer(${player.id})">
+                🗑 Delete
+            </button>
+
+        </div>
+        `;
+
+    });
+
+}
+
+loadTopScorersAdmin();
+
 // Goal Save
 saveBtn.addEventListener("click", async () => {
 
@@ -62,3 +105,48 @@ saveBtn.addEventListener("click", async () => {
     goalInput.value = "";
     playerSelect.value = "";
 });
+window.editScorer = async function(id, playerName, goals) {
+
+    const newGoals = prompt(`Edit goals for ${playerName}`, goals);
+
+    if (newGoals === null) return;
+
+    const { error } = await supabase
+        .from("registrations")
+        .update({
+            goals: Number(newGoals)
+        })
+        .eq("id", id);
+
+    if (error) {
+        alert(error.message);
+        return;
+    }
+
+    alert("✅ Goal Updated");
+
+    loadTopScorersAdmin();
+
+};
+
+window.deleteScorer = async function(id) {
+
+    if (!confirm("Delete this scorer?")) return;
+
+    const { error } = await supabase
+        .from("registrations")
+        .update({
+            goals: 0
+        })
+        .eq("id", id);
+
+    if (error) {
+        alert(error.message);
+        return;
+    }
+
+    alert("🗑 Scorer Removed");
+
+    loadTopScorersAdmin();
+
+};

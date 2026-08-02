@@ -65,7 +65,7 @@ text-align:center;
 color:white;
 
 border-bottom:1px solid rgba(255,255,255,.08);
-
+    position:relative;
 }
 
 tbody tr{
@@ -77,24 +77,6 @@ transition:.3s;
 tbody tr:hover{
 
 background:rgba(255,215,0,.12);
-
-}
-
-tbody tr:nth-child(1){
-
-background:rgba(255,215,0,.18);
-
-}
-
-tbody tr:nth-child(2){
-
-background:rgba(255,255,255,.08);
-
-}
-
-tbody tr:nth-child(3){
-
-background:rgba(205,127,50,.12);
 
 }
 
@@ -120,4 +102,31 @@ font-size:30px;
 
 }
 
+}
+/* UEFA Style Qualification */
+
+.first-place td:first-child{
+    border-left:8px solid #0630e9;
+}
+
+.second-place td:first-child{
+    border-left:8px solid #30dd38;
+}
+
+.third-place td:first-child{
+    border-left:8px solid #2aca32;
+}
+
+.fourth-place td:first-child{
+    border-left:8px solid #30bb35;
+}
+
+/* Eliminated */
+
+.fifth-place td:first-child{
+    border-left:8px solid #ff9800;
+}
+
+.sixth-place td:first-child{
+    border-left:8px solid #e53935;
 }

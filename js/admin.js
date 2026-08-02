@@ -197,6 +197,52 @@ async function loadMatches() {
 
 loadMatches();
 
+const resultsList = document.getElementById("resultsList");
+
+async function loadResultsHistory() {
+
+    const { data, error } = await supabase
+        .from("results")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        console.log(error);
+        return;
+    }
+
+    resultsList.innerHTML = "";
+
+    data.forEach(result => {
+
+        resultsList.innerHTML += `
+        <div class="match-item">
+
+            <h3>
+                ${result.team_one}
+                ${result.team_one_score}
+                -
+                ${result.team_two_score}
+                ${result.team_two}
+            </h3>
+
+            <p>🏆 ${result.man_of_match}</p>
+
+            <p>📅 ${result.match_date}</p>
+
+            <button onclick="deleteResult(${result.id})">
+                🗑 Delete Result
+            </button>
+
+        </div>
+       `;
+
+    });
+
+}
+
+loadResultsHistory();
+
 
 // ==========================
 // SAVE MATCH
@@ -280,6 +326,27 @@ async function deleteMatch(id) {
 }
 
 window.deleteMatch = deleteMatch;
+
+window.deleteResult = async function(id) {
+
+    if (!confirm("Delete this result?")) return;
+
+    const { error } = await supabase
+        .from("results")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+        alert(error.message);
+        return;
+    }
+
+    alert("✅ Result Deleted");
+
+    loadResultsHistory();
+
+};
+
 // ==========================
 // RESULT ELEMENTS
 // ==========================
@@ -498,6 +565,45 @@ await updateStanding(
     score1,
     resultTwo
 );
+const { data: matchData } = await supabase
+    .from("matches")
+    .select("*")
+    .eq("id", matchSelect.value)
+    .single();
+
+const { data: existing } = await supabase
+    .from("results")
+    .select("id")
+    .eq("match_id", matchSelect.value)
+    .maybeSingle();
+
+if (existing) {
+
+    await supabase
+        .from("results")
+        .update({
+            team_one_score: score1,
+            team_two_score: score2,
+            man_of_match: manOfMatch.value
+        })
+        .eq("match_id", matchSelect.value);
+
+} else {
+
+    await supabase
+        .from("results")
+        .insert({
+            match_id: matchSelect.value,
+            team_one: matchData.team_one,
+            team_two: matchData.team_two,
+            team_one_score: score1,
+            team_two_score: score2,
+            match_date: matchData.match_date,
+            stadium: matchData.stadium,
+            man_of_match: manOfMatch.value
+        });
+
+}
 
     alert("✅ Match Result Saved");
 

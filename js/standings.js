@@ -20,8 +20,40 @@ async function loadStandings() {
 
     data.forEach((team, index) => {
 
+        let rowClass = "";
+
+        switch (index) {
+
+            case 0:
+                rowClass = "first-place";
+                break;
+
+            case 1:
+                rowClass = "second-place";
+                break;
+
+            case 2:
+                rowClass = "third-place";
+                break;
+
+            case 3:
+                rowClass = "fourth-place";
+                break;
+
+            case 4:
+                rowClass = "fifth-place";
+                break;
+
+            case 5:
+                rowClass = "sixth-place";
+                break;
+
+            default:
+                rowClass = "";
+        }
+
         standingsBody.innerHTML += `
-        <tr>
+        <tr class="${rowClass}">
             <td>${index + 1}</td>
             <td>${team.team}</td>
             <td>${team.played}</td>
