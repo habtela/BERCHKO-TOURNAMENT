@@ -4,9 +4,8 @@ const latestResults = document.getElementById("latestResults");
 
 async function loadResults() {
     const { data, error } = await supabase
-        .from("matches")
+        .from("results")
         .select("*")
-        .eq("status", "Finished")
         .order("match_date", { ascending: false });
 
     if (error) {
