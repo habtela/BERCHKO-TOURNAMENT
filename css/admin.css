@@ -326,3 +326,40 @@
 }
 
 }
+/* MATCH STATUS BADGES */
+
+.match-status {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 800;
+    margin: 8px 0;
+    letter-spacing: .5px;
+}
+
+.match-status.upcoming {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.match-status.live {
+    background: #ffebee;
+    color: #d32f2f;
+    animation: livePulse 1.5s infinite;
+}
+
+.match-status.finished {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+@keyframes livePulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .55;
+    }
+}

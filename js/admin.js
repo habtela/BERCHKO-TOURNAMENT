@@ -177,6 +177,14 @@ async function loadMatches() {
 
             <h3>${match.team_one} ⚔️ ${match.team_two}</h3>
 
+            <p class="match-status ${match.status.toLowerCase()}">
+    ${match.status === "Finished"
+        ? "🏁 FINISHED"
+        : match.status === "Live"
+        ? "🔴 LIVE"
+        : "🟡 NEXT MATCH"}
+</p>
+
             <p>📅 ${match.match_date}</p>
 
             <p>⏰ ${match.match_time}</p>

@@ -192,3 +192,38 @@
     color:gold;
     margin:15px 0;
 }
+.schedule-status {
+    width: fit-content;
+    margin: 0 auto 15px;
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .5px;
+}
+
+.schedule-status.upcoming {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.schedule-status.live {
+    background: #ffebee;
+    color: #d32f2f;
+    animation: scheduleLivePulse 1.5s infinite;
+}
+
+.schedule-status.finished {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+@keyframes scheduleLivePulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .55;
+    }
+}

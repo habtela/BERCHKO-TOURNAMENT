@@ -27,6 +27,9 @@ async function loadResults() {
 
         latestResults.innerHTML += `
             <div class="result-card">
+            <div class="result-status">
+    🏁 FINISHED
+</div>
 
                 <h2>
                     ${match.team_one}

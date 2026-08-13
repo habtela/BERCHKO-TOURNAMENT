@@ -59,6 +59,11 @@ async function loadMatches(){
 
 
     matches.forEach(match => {
+        const matchDate = new Date(match.match_date + "T00:00:00");
+
+const dayName = matchDate.toLocaleDateString("en-US", {
+    weekday: "long"
+});
 
 
 
@@ -67,6 +72,13 @@ async function loadMatches(){
 
         <div class="match-card">
 
+<div class="schedule-status ${match.status.toLowerCase()}">
+    ${match.status === "Finished"
+        ? "🏁 FINISHED"
+        : match.status === "Live"
+        ? "🔴 LIVE"
+        : "🟡 NEXT MATCH"}
+</div>
 
             <div class="teams">
 
@@ -97,11 +109,11 @@ async function loadMatches(){
             <div class="match-info">
 
 
-                <p>
-                📅 
-                <span>Date:</span>
-                ${match.match_date}
-                </p>
+            <p>
+            📅
+            <span>Day:</span>
+            <strong>${dayName}</strong>
+            </p>
 
 
 
